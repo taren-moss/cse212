@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 public static class ArraysTester {
     /// <summary>
     /// Entry point for the tests
@@ -34,12 +36,20 @@ public static class ArraysTester {
     /// <returns>array of doubles that are the multiples of the supplied number</returns>
     private static double[] MultiplesOf(double number, int length)
     {
-        // TODO Problem 1 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        // The code takes 2 parameters, number and length.
+        // It will need a double that can hold 'length' pieces of information first.
+        // Then it will count from index 0 up to but not including the value of 'length' so I'll
+        // use a for loop that increments 'i' until 'i' = 'length'
+        // The code will then need to take 'i' in each iteration and multiply it by 'number' to get the multiple of the number
+        // Because indexes start at 0, 'i' will also start at 0. When multiplying it, it needs to be increased by 1 to account for that
+        // And then it will need to place that value into the respective index of the output.
 
-        return new double[0]; // replace this return statement with your own
+        var output = new double[length];
+        for (int i = 0; i < length; i++) {
+            output[i] = number * (i + 1);
+        }
+
+        return output;
     }
     
     /// <summary>
@@ -52,10 +62,21 @@ public static class ArraysTester {
     /// </summary>
     private static void RotateListRight(List<int> data, int amount)
     {
-        // TODO Problem 2 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        // This one is a lot more complicated. The code should track the length of 'data' first
+        // Then it should take the data and add the 'amount' to the index
+        // but before storing the value, it needs to be convert overflow into something useable
+        // This will be done by subtracting the index length from any index that's larger than the length
+        // For example if there's 5 objects in index 0, 1, 2, 3, and 4, and they get shifted over by 3, the new
+        // index will be 3, 4, 5, 6, and 7. Since the length is 5 (index 0-4), index 5, 6, and 7 will lose 5 (3, 4, 0, 1, 2)
+        // This allows them to be replaced in their new position without breaking the index
 
+        var length = data.Count;
+        for (int i = 0; i < length; i++) {
+            data[i] = i - amount;
+            if (i - amount < 0) {
+                data[i] += length;
+            }
+            data[i] += 1;
+        }
     }
 }

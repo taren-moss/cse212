@@ -19,7 +19,7 @@ public static class Sorting {
         for (var sortPos = data.Length - 1; sortPos >= 0; sortPos--) {
             for (var swapPos = 0; swapPos < sortPos; ++swapPos) {
                 if (data[swapPos] > data[swapPos + 1]) {
-                    (data[swapPos + 1], data[swapPos]) = (data[swapPos], data[swapPos + 1]);
+                    (data[swapPos + 1], data[swapPos]) = (data[swapPos], data[swapPos + 1]); // I think this is O(n^2)?
                 }
             }
         }

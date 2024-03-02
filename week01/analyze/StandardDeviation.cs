@@ -28,17 +28,19 @@ public static class StandardDeviation {
         foreach (var number in numbers) {
             total += number;
             count += 1;
+            // O(n)
         }
 
         var avg = total / count;
         var sumSquaredDifferences = 0.0;
         foreach (var number in numbers) {
             sumSquaredDifferences += Math.Pow(number - avg, 2);
+            // O(n)
         }
 
         var variance = sumSquaredDifferences / count;
         return Math.Sqrt(variance);
-    }
+    } // Total: O(2n)
 
     private static double StandardDeviation2(int[] numbers) {
         var sumSquaredDifferences = 0.0;
@@ -58,17 +60,17 @@ public static class StandardDeviation {
 
         var variance = sumSquaredDifferences / countNumbers;
         return Math.Sqrt(variance);
-    }
+    } // Total: O(n^2)
 
     private static double StandardDeviation3(int[] numbers) {
         var count = numbers.Length;
         var avg = (double)numbers.Sum() / count;
         var sumSquaredDifferences = 0.0;
         foreach (var number in numbers) {
-            sumSquaredDifferences += Math.Pow(number - avg, 2);
+            sumSquaredDifferences += Math.Pow(number - avg, 2); // O(n)
         }
 
         var variance = sumSquaredDifferences / count;
         return Math.Sqrt(variance);
-    }
+    } // Total: O(n)
 }

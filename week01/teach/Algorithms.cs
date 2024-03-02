@@ -48,9 +48,9 @@ public static class Algorithms {
     private static int Algorithm1(int size) {
         var count = 0;
         for (var i = 0; i < size; ++i)
-            count += 1;
+            count += 1; // Just n
 
-        return count;
+        return count; // n
     }
 
     /// <summary>
@@ -61,11 +61,11 @@ public static class Algorithms {
     /// <param name="size">the amount of work to do</param>
     private static int Algorithm2(int size) {
         var count = 0;
-        for (var i = 0; i < size; ++i)
-        for (var j = 0; j < size; ++j)
+        for (var i = 0; i < size; ++i) // n
+        for (var j = 0; j < size; ++j) // times n
             count += 1;
 
-        return count;
+        return count; // n^2
     }
 
     /// <summary>
@@ -84,6 +84,7 @@ public static class Algorithms {
             count += 1;
         }
 
-        return count;
+        return count; // What am I looking at? This may be faster but I'd rather have code I can actually read.
+        // Maybe I'll be able to understand this better later in the class.
     }
 }

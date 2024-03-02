@@ -51,7 +51,7 @@ public static class Search {
         }
 
         return count; // Didn't find it
-    }
+    } // O(n)
 
     /// <summary>
     /// Search for 'target' in the list 'data'. When its found (or not found) the variable count which represents
