@@ -39,8 +39,12 @@ public class TakingTurnsQueue {
                 _people.Enqueue(person);
             }
 
+            else if (person.Turns <= 0) {
+                _people.Enqueue(person);
+            }
+
             Console.WriteLine(person.Name);
-        }
+        } // This code is really simple and looks like it should work. So the issue with this must be in Enqueue or Dequeue
     }
 
     public override string ToString() {

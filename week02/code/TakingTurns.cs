@@ -15,7 +15,8 @@
         // Console.WriteLine(players);    // This can be un-commented out for debug help
         while (players.Length > 0)
             players.GetNextPerson();
-        // Defect(s) Found: 
+        // Defect(s) Found: People aren't enqueued in the correct order, all people are added together.
+        // This implies an issue with the GetNextPerson function, because that's what handles re-queueing.
 
         Console.WriteLine("---------");
 
