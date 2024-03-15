@@ -1,3 +1,4 @@
+using System.Diagnostics.Metrics;
 using System.Text.Json;
 
 public static class SetsAndMapsTester {
@@ -111,6 +112,29 @@ public static class SetsAndMapsTester {
         // To display the pair correctly use something like:
         // Console.WriteLine($"{word} & {pair}");
         // Each pair of words should displayed on its own line.
+
+        // << MY COMMENTS >>
+        // This seemed like the easiest and most performant way to reverse a word
+        // In the past I'd use this method but loop through the array in reverse order to reverse a word
+        // A Google search for how to do it made me aware of the Array.Reverse() function though
+        // I searched because I forgot how to do it, but I knew this was what I wanted to do
+        // It turned out easier and cleaner than I thought it would be though because I found out I could do this.
+        // It would be nice if I was better at remembering the exact syntax of things
+        // I generally remember things conceptually rather than remembering the details
+        // Which results in having to do a lot of Google searches to refresh my memory of exact syntax
+        // Which isn't ideal.
+
+        var stack = new Stack<string>();
+        foreach (var word in words) {
+            char[] array = word.ToCharArray();
+            Array.Reverse(array);
+            var reverseWord = new string(array);
+
+            if (stack.Contains(reverseWord)) {
+                Console.WriteLine(word + " & " + reverseWord);
+            }
+            stack.Push(word);
+        }
     }
 
     /// <summary>
@@ -132,6 +156,13 @@ public static class SetsAndMapsTester {
         foreach (var line in File.ReadLines(filename)) {
             var fields = line.Split(",");
             // Todo Problem 2 - ADD YOUR CODE HERE
+            if (degrees.ContainsKey(fields[3])) {
+                degrees[fields[3]] += 1;
+            }
+            else {
+                degrees.Add(fields[3], 1);
+            }
+            // This one was surprisingly easy.
         }
 
         return degrees;
@@ -158,12 +189,61 @@ public static class SetsAndMapsTester {
     /// #############
     private static bool IsAnagram(string word1, string word2) {
         // Todo Problem 3 - ADD YOUR CODE HERE
-        return false;
+
+        var output = true;
+        var dictionary = new Dictionary<string, int>();
+        var count1 = 0;
+        var count2 = 0;
+
+        // Collecting information for word 1
+        foreach (char character in word1) {
+            var letter = character.ToString().ToLower();
+            if (letter != " ") {
+                if (dictionary.ContainsKey(letter)) {
+                    dictionary[letter] += 1;
+                }
+                else {
+                    dictionary.Add(letter, 1);
+                }
+
+                count1++;
+            }
+        }
+
+        // Collecting information from word 2
+        foreach (char character in word2) {
+            var letter = character.ToString().ToLower();
+            if (letter != " ") {
+                if (dictionary.ContainsKey(letter)) {
+                    dictionary[letter] -= 1;
+                }
+                else {
+                    output = false; // If a word is found in word 2 that isn't in word 1, it's not an anagram
+                }
+
+                count2++;
+            }
+        }
+
+        // Checking if the length without spaces matches. If not, definitely false
+        if (count1 != count2) {
+            output = false;
+        }
+        else {
+            foreach (var item in dictionary) {
+                if (item.Value != 0) { // Word 1 counts up how many times a character is used. Word 2 counts down. If they don't cancel out perfectly, it's not an anagram - there's extra letters in at least one word
+                    output = false;
+                }
+            }
+        }
+
+        return output;
     }
 
     /// <summary>
     /// Sets up the maze dictionary for problem 4
     /// </summary>
+    /// Format: {left, right, up, down}
     private static Dictionary<ValueTuple<int, int>, bool[]> SetupMazeMap() {
         Dictionary<ValueTuple<int, int>, bool[]> map = new() {
             { (1, 1), new[] { false, true, false, true } },
@@ -227,6 +307,7 @@ public static class SetsAndMapsTester {
         using var jsonStream = client.Send(getRequestMessage).Content.ReadAsStream();
         using var reader = new StreamReader(jsonStream);
         var json = reader.ReadToEnd();
+    
         var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
         var featureCollection = JsonSerializer.Deserialize<FeatureCollection>(json, options);
@@ -235,5 +316,8 @@ public static class SetsAndMapsTester {
         // 1. Add code in FeatureCollection.cs to describe the JSON using classes and properties 
         // on those classes so that the call to Deserialize above works properly.
         // 2. Add code below to print out each place a earthquake has happened today and its magitude.
+        foreach (var item in featureCollection.Features) {
+            Console.WriteLine($"{item.Properties.Place} - Mag {item.Properties.Mag}");
+        }
     }
 }
