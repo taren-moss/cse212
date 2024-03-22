@@ -72,5 +72,36 @@ public static class LinkedListTester {
 
         Console.WriteLine("\n=========== PROBLEM 5 TESTS ===========");
         Console.WriteLine(ll.Reverse().AsString()); // <IEnumerable>[10, 10, 35, 100}
+
+
+        Console.WriteLine("\n=========== OTHER TESTS ===========");
+        var test = new LinkedList();
+        Console.WriteLine(test.ToString()); // <LinkedList>{}
+        test.InsertHead(9);
+        Console.WriteLine(test.ToString()); // <LinkedList>{9}
+        test.InsertTail (10);
+        Console.WriteLine(test.ToString()); // <LinkedList>{9, 10}
+        test.InsertAfter(9, 12);
+        Console.WriteLine(test.ToString()); // <LinkedList>{9, 12, 10}
+        test.InsertHead(10);
+        test.InsertTail(9);
+        Console.WriteLine(test.ToString()); // <LinkedList>{10, 9, 12, 10, 9}
+        test.Replace(9, -9);
+        test.Replace(10, 22);
+        test.Remove(22);
+        Console.WriteLine(test.ToString()); // <LinkedList>{-9, 12, 22, -9}
+        test.Remove(-9);
+        Console.WriteLine(test.ToString()); // <LinkedList>{12, 22, -9}
+        test.Remove(-9);
+        Console.WriteLine(test.ToString()); // <LinkedList>{12, 22}
+        test.Remove(12);
+        Console.WriteLine(test.ToString()); // <LinkedList>{22}
+        test.Remove(22);
+        Console.WriteLine(test.ToString()); // <LinkedList>{}
+        test.InsertHead(1);
+        test.InsertTail(11);
+        test.InsertHead(111);
+        Console.WriteLine(test.Reverse().AsString()); // <LinkedList>{11, 1, 111}
+        // This test was added late. I actually found and fixed an error because of it.
     }
 }

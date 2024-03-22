@@ -123,9 +123,9 @@ public class LinkedList : IEnumerable<int> {
                     else {
                         current.Next!.Prev = current.Prev; // I'm attempting to connect the previous node's next pointer to the next node
                         current.Prev!.Next = current.Next; // And here to connect the next node's previous pointer to the previous node
-                        valueRemoved = true;
                     }
                 }
+                valueRemoved = true;
             }
 
             current = current.Next; // Go to the next node to repeat the check
